@@ -1,3 +1,4 @@
+//Definição dos pinos
 #define resistor    5
 #define cooler      6
 #define sensor 0
@@ -29,20 +30,20 @@ void loop() {
 
   temperatura = medir_temperatura();
 
-  erro = setpoint - temperatura;
+  erro = setpoint - temperatura;//calcula o erro
 
-  p = kp * erro;
+  p = kp * erro;//calcula a ação de controle
 
-  if (p >= 255) {
+  if (p >= 255) {//limita o valor do sinal de controle
     p = 255;
   }
   if (p <= 0) {
     p = 0;
   }
 
-  analogWrite(resistor, (int)p);
+  analogWrite(resistor, (int)p);//seta potência do resistor
   
-  analogWrite(cooler, map(analogRead(pot2), 0, 1023, 0, 255));
+  analogWrite(cooler, map(analogRead(pot2), 0, 1023, 0, 255));//Controla o cooler a partir do potenciômetro
 
   Serial.println(temperatura);
   delay(50);
